@@ -2,7 +2,7 @@ import asyncio
 import aiohttp
 import discord
 from discord.ext import commands
-import youtube_dl
+import yt_dlp as youtube_dl
 import ssl
 import ffmpeg
 
