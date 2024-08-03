@@ -1,9 +1,9 @@
-import os
-import discord
-from discord.ext import commands
-import yt_dlp as youtube_dl
 import asyncio
 import aiohttp
+import discord
+from discord.ext import commands
+import youtube_dl
+import ssl
 import ffmpeg
 
 # Create a custom aiohttp ClientSession
@@ -70,8 +70,8 @@ class MusicPlayer:
             self.next.clear()
 
             try:
-                async with asyncio.timeout(300):
-                    source = await self.queue.get()
+                # Use asyncio.wait_for instead of asyncio.timeout
+                source = await asyncio.wait_for(self.queue.get(), timeout=300)
             except asyncio.TimeoutError:
                 return self.destroy(self.guild)
 
@@ -202,4 +202,4 @@ async def on_ready():
 async def on_connect():
     bot.http.session = await get_session()
 
-bot.run('MTI2OTI2NTczMjkzMjMzNzczNA.G9sX89.k4zDCDrAtrYDf0tvJtLFxCjMBzE0Rdc2BMV-Ls')
+bot.run('')
